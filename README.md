@@ -7,3 +7,4 @@ files_from_camera - app for test conception.
 The best result is 1/5 second delay for picture and 10 fps video
 
 second_library - test for second lib, copied from github
+best result - 3 fps and 0.3 sec delay
