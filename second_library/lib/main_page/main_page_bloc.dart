@@ -3,7 +3,6 @@ import '../default_bloc.dart' show DefaultBloc;
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'dart:async' show Timer;
-import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as imglib;

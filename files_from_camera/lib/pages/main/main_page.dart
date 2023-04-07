@@ -2,7 +2,6 @@ import 'package:files_from_camera/pages/main/main_page_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:io' show File;
-import 'dart:math' show pi;
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

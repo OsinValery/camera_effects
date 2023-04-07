@@ -1,8 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../main_action_event.dart';
 import '../main_action_state.dart' show MainActionState;
+import 'bottom_camera_menu.dart';
 
 class CameraView extends StatelessWidget {
   const CameraView({super.key, required this.state});
@@ -11,12 +14,29 @@ class CameraView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var info = MediaQuery.of(context);
+    Widget image = SizedBox(width: info.size.width, height: info.size.width);
+    if (state.stylizedImage != null) {
+      Uint8List imgData = state.stylizedImage! as Uint8List;
+      image = Image.memory(
+        imgData,
+        gaplessPlayback: true,
+        width: info.size.width,
+        height: info.size.width,
+      );
+    }
     return Scaffold(
       appBar: AppBar(title: const Text('Style transfer app')),
-      body: Stack(
-        children: const [
-          Text('present camera'),
-        ],
+      body: SafeArea(
+        child: Column(children: [
+          Expanded(child: Center(child: image)),
+          BottomMenu(
+            lastPicturePath: null,
+            btnState: CameraStateButtonState.photo,
+            stylePath: state.stylePath,
+            useStyleFromAssets: state.useStyleFromAssets,
+          ),
+        ]),
       ),
     );
   }

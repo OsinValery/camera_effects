@@ -1,0 +1,68 @@
+PODS:
+  - camera_avfoundation (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - "permission_handler (5.1.0+2)":
+    - Flutter
+  - TensorFlowLiteC (2.11.0):
+    - TensorFlowLiteC/Core (= 2.11.0)
+  - TensorFlowLiteC/Core (2.11.0)
+  - TensorFlowLiteC/CoreML (2.11.0):
+    - TensorFlowLiteC/Core
+  - TensorFlowLiteC/Metal (2.11.0):
+    - TensorFlowLiteC/Core
+  - TensorFlowLiteSwift (2.11.0):
+    - TensorFlowLiteSwift/Core (= 2.11.0)
+  - TensorFlowLiteSwift/Core (2.11.0):
+    - TensorFlowLiteC (= 2.11.0)
+  - TensorFlowLiteSwift/CoreML (2.11.0):
+    - TensorFlowLiteC/CoreML (= 2.11.0)
+    - TensorFlowLiteSwift/Core (= 2.11.0)
+  - TensorFlowLiteSwift/Metal (2.11.0):
+    - TensorFlowLiteC/Metal (= 2.11.0)
+    - TensorFlowLiteSwift/Core (= 2.11.0)
+  - tflite_style_transfer_ios (0.0.1):
+    - Flutter
+    - TensorFlowLiteSwift
+    - TensorFlowLiteSwift/CoreML
+    - TensorFlowLiteSwift/Metal
+
+DEPENDENCIES:
+  - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
+  - Flutter (from `Flutter`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - tflite_style_transfer_ios (from `.symlinks/plugins/tflite_style_transfer_ios/ios`)
+
+SPEC REPOS:
+  trunk:
+    - TensorFlowLiteC
+    - TensorFlowLiteSwift
+
+EXTERNAL SOURCES:
+  camera_avfoundation:
+    :path: ".symlinks/plugins/camera_avfoundation/ios"
+  Flutter:
+    :path: Flutter
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+  tflite_style_transfer_ios:
+    :path: ".symlinks/plugins/tflite_style_transfer_ios/ios"
+
+SPEC CHECKSUMS:
+  camera_avfoundation: 3125e8cd1a4387f6f31c6c63abb8a55892a9eeeb
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
+  permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
+  TensorFlowLiteC: 8a8cb6fa20ad74dff29b5e490d02c36a14d48148
+  TensorFlowLiteSwift: 1a5cd776a377f8d7a009b16f5904fdf91a8debfa
+  tflite_style_transfer_ios: 304ab2a9f538d87eea8e516dadcde4fa8d6beb55
+
+PODFILE CHECKSUM: a1cf78308a87219f46b6ccb7eb14ff99e9f37c6d
+
+COCOAPODS: 1.11.2
