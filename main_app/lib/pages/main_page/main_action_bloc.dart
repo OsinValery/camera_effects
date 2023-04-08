@@ -27,6 +27,7 @@ class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
     on<StyleTimerEvent>(_onStyleTimerEvent);
     on<RequestCameraPermissionEvent>(_onPermissionRequestEvent);
     on<TakePhoteEvent>(_onTakePictureEvent);
+    on<ChangeCameraEvent>(_onCameraSwitchEvent);
   }
 
   void prepareCameraController(CameraDescription description) {
@@ -125,6 +126,19 @@ class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
       styleFromAssets: curState.useStyleFromAssets,
     );
     print(outPath);
+  }
+
+  _onCameraSwitchEvent(event, Emitter emitter) async {
+    var availableCameras_ = await availableCameras();
+    int curCamera = _cameraController.cameraId;
+    if (availableCameras_.length == 1) {
+      return;
+    } else {
+      int nextCamera = (curCamera + 1) % availableCameras_.length;
+      await disableCameraController();
+      prepareCameraController(availableCameras_[nextCamera]);
+      emitter(curState);
+    }
   }
 
   @override

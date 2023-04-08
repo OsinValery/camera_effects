@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:main_app/pages/main_page/main_action_bloc.dart';
 
 import '../main_action_event.dart';
 import '../main_action_state.dart' show MainActionState;
@@ -11,6 +13,9 @@ class CameraView extends StatelessWidget {
   const CameraView({super.key, required this.state});
 
   final MainActionState state;
+
+  IconData get cameraSwitchIcon =>
+      Platform.isIOS ? Icons.flip_camera_ios : Icons.flip_camera_android;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,17 @@ class CameraView extends StatelessWidget {
       );
     }
     return Scaffold(
-      appBar: AppBar(title: const Text('Style transfer app')),
+      appBar: AppBar(
+        title: const Text('Style transfer app'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () =>
+                context.read<MainActionBloc>().add(ChangeCameraEvent()),
+            icon: Icon(cameraSwitchIcon),
+          ),
+        ],
+      ),
       body: Column(children: [
         Expanded(child: Center(child: image)),
         BottomMenu(

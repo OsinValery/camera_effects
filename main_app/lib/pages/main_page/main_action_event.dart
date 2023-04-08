@@ -7,3 +7,5 @@ class StyleTimerEvent extends MainActionEvent {}
 class TakePhoteEvent extends MainActionEvent {}
 
 class RequestCameraPermissionEvent extends MainActionEvent {}
+
+class ChangeCameraEvent extends MainActionEvent {}
