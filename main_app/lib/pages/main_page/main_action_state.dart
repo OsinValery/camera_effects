@@ -16,6 +16,7 @@ class MainActionState extends Equatable {
     this.stylizedImage,
     this.useStyleFromAssets = true,
     this.cameraAvailable = false,
+    this.zoomLavel = 1,
   });
   final bool styleTransferRunned;
   final bool cameraAvailable;
@@ -25,6 +26,7 @@ class MainActionState extends Equatable {
   final bool useStyleFromAssets;
   final bool? cameraPermitted;
   final CameraMode cameraMode;
+  final num zoomLavel;
 
   @override
   List<Object?> get props => [
@@ -46,6 +48,7 @@ class MainActionState extends Equatable {
           bool? useStyleFromAssets,
           bool? cameraPermitted,
           CameraMode? cameraMode,
+          num? zoomLavel,
           bool? cameraAvailable}) =>
       MainActionState(
         cameraMode: cameraMode ?? this.cameraMode,
@@ -56,6 +59,7 @@ class MainActionState extends Equatable {
         useStyleFromAssets: useStyleFromAssets ?? this.useStyleFromAssets,
         cameraPermitted: cameraPermitted ?? this.cameraPermitted,
         cameraAvailable: cameraAvailable ?? this.cameraAvailable,
+        zoomLavel: zoomLavel ?? this.zoomLavel,
       );
 }
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io' show File;
+import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:camera/camera.dart';
@@ -21,6 +22,7 @@ class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
   Timer? styleTimer;
   Future<String>? imageLoadingProgress;
   bool imageProcessing = false;
+  num initialZoom = 1;
 
   MainActionBloc() : super(const MainActionState()) {
     on<InitStateEvent>(_onInitStateEvent);
@@ -28,6 +30,8 @@ class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
     on<RequestCameraPermissionEvent>(_onPermissionRequestEvent);
     on<TakePhoteEvent>(_onTakePictureEvent);
     on<ChangeCameraEvent>(_onCameraSwitchEvent);
+    on<ZoomStartEvent>(_onZoomStartEvent);
+    on<ZoomingEvent>(_onZoomEvent);
   }
 
   void prepareCameraController(CameraDescription description) {
@@ -137,8 +141,21 @@ class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
       int nextCamera = (curCamera + 1) % availableCameras_.length;
       await disableCameraController();
       prepareCameraController(availableCameras_[nextCamera]);
+      curState = curState.copyWith(zoomLavel: 1);
       emitter(curState);
     }
+  }
+
+  void _onZoomStartEvent(event, Emitter _) => initialZoom = curState.zoomLavel;
+
+  void _onZoomEvent(ZoomingEvent event, Emitter emitter) async {
+    var newZoom = initialZoom * event.zoom;
+    var maxZoom = await _cameraController.getMaxZoomLevel();
+    var minZoom = await _cameraController.getMinZoomLevel();
+    newZoom = max(minZoom, min(newZoom, maxZoom));
+    curState = curState.copyWith(zoomLavel: newZoom);
+    _cameraController.setZoomLevel(newZoom as double);
+    emitter(curState);
   }
 
   @override

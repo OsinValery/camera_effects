@@ -44,6 +44,20 @@ class BottomMenu extends StatelessWidget {
       );
     }
 
+    Widget btnCenterWidget = btnState == CameraStateButtonState.photo
+        ? Container(
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.green,
+            ),
+            width: iconsSide - 2,
+            height: iconsSide - 2,
+            child: Icon(Icons.camera, size: iconsSide / 2),
+          )
+        : btnState == CameraStateButtonState.cameraPlay
+            ? const Text('stop')
+            : const Text('start');
+
     return Container(
       color: const Color.fromARGB(204, 0, 0, 0),
       height: menuHeight,
@@ -60,6 +74,7 @@ class BottomMenu extends StatelessWidget {
             height: iconsSide,
             child: GestureDetector(
               onTap: () => context.read<MainActionBloc>().add(TakePhoteEvent()),
+              child: btnCenterWidget,
             ),
           ),
           styleImage,

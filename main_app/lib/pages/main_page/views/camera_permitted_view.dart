@@ -42,7 +42,19 @@ class CameraView extends StatelessWidget {
         ],
       ),
       body: Column(children: [
-        Expanded(child: Center(child: image)),
+        Expanded(
+          child: Center(
+            child: GestureDetector(
+              onScaleUpdate: (details) {
+                context.read<MainActionBloc>().add(ZoomingEvent(details.scale));
+              },
+              onScaleStart: (details) {
+                context.read<MainActionBloc>().add(ZoomStartEvent());
+              },
+              child: image,
+            ),
+          ),
+        ),
         BottomMenu(
           lastPicturePath: null,
           btnState: CameraStateButtonState.photo,
