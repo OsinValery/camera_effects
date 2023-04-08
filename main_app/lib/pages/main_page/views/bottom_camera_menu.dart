@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:io' show File;
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:main_app/pages/main_page/main_action_bloc.dart';
+import '../main_action_event.dart';
+
 class BottomMenu extends StatelessWidget {
   const BottomMenu({
     super.key,
@@ -22,7 +26,7 @@ class BottomMenu extends StatelessWidget {
     var iconsSide = menuHeight / 2.8;
 
     var lastImage = lastPicturePath == null
-        ? Container()
+        ? SizedBox(width: iconsSide, height: iconsSide)
         : Image.file(
             File(lastPicturePath!),
             gaplessPlayback: true,
@@ -48,9 +52,15 @@ class BottomMenu extends StatelessWidget {
         children: [
           lastImage,
           Container(
-            decoration: const BoxDecoration(shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(width: 1, color: Colors.green),
+            ),
             width: iconsSide,
             height: iconsSide,
+            child: GestureDetector(
+              onTap: () => context.read<MainActionBloc>().add(TakePhoteEvent()),
+            ),
           ),
           styleImage,
         ],

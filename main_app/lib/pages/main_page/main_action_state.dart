@@ -9,19 +9,21 @@ enum CameraMode {
 class MainActionState extends Equatable {
   const MainActionState({
     this.cameraMode = CameraMode.picture,
-    this.cameraPermitted = false,
+    this.cameraPermitted,
     this.curCameraImage,
     this.stylePath = 'assets/styles/style0.jpg',
     this.styleTransferRunned = false,
     this.stylizedImage,
     this.useStyleFromAssets = true,
+    this.cameraAvailable = false,
   });
   final bool styleTransferRunned;
+  final bool cameraAvailable;
   final List<int>? stylizedImage;
   final CameraImage? curCameraImage;
   final String stylePath;
   final bool useStyleFromAssets;
-  final bool cameraPermitted;
+  final bool? cameraPermitted;
   final CameraMode cameraMode;
 
   @override
@@ -32,7 +34,8 @@ class MainActionState extends Equatable {
         stylizedImage,
         useStyleFromAssets,
         cameraPermitted,
-        cameraMode
+        cameraMode,
+        cameraAvailable
       ];
 
   MainActionState copyWith(
@@ -42,7 +45,8 @@ class MainActionState extends Equatable {
           String? stylePath,
           bool? useStyleFromAssets,
           bool? cameraPermitted,
-          CameraMode? cameraMode}) =>
+          CameraMode? cameraMode,
+          bool? cameraAvailable}) =>
       MainActionState(
         cameraMode: cameraMode ?? this.cameraMode,
         stylePath: stylePath ?? this.stylePath,
@@ -51,5 +55,17 @@ class MainActionState extends Equatable {
         curCameraImage: curCameraImage ?? this.curCameraImage,
         useStyleFromAssets: useStyleFromAssets ?? this.useStyleFromAssets,
         cameraPermitted: cameraPermitted ?? this.cameraPermitted,
+        cameraAvailable: cameraAvailable ?? this.cameraAvailable,
       );
+}
+
+class AnotherActionState extends MainActionState {
+  const AnotherActionState({this.type});
+  final String? type;
+
+  @override
+  operator ==(other) => false;
+
+  @override
+  int get hashCode => super.hashCode ^ type.hashCode;
 }

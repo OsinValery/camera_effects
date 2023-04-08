@@ -17,9 +17,8 @@ class CameraView extends StatelessWidget {
     var info = MediaQuery.of(context);
     Widget image = SizedBox(width: info.size.width, height: info.size.width);
     if (state.stylizedImage != null) {
-      Uint8List imgData = state.stylizedImage! as Uint8List;
       image = Image.memory(
-        imgData,
+        state.stylizedImage! as Uint8List,
         gaplessPlayback: true,
         width: info.size.width,
         height: info.size.width,
@@ -27,17 +26,15 @@ class CameraView extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(title: const Text('Style transfer app')),
-      body: SafeArea(
-        child: Column(children: [
-          Expanded(child: Center(child: image)),
-          BottomMenu(
-            lastPicturePath: null,
-            btnState: CameraStateButtonState.photo,
-            stylePath: state.stylePath,
-            useStyleFromAssets: state.useStyleFromAssets,
-          ),
-        ]),
-      ),
+      body: Column(children: [
+        Expanded(child: Center(child: image)),
+        BottomMenu(
+          lastPicturePath: null,
+          btnState: CameraStateButtonState.photo,
+          stylePath: state.stylePath,
+          useStyleFromAssets: state.useStyleFromAssets,
+        ),
+      ]),
     );
   }
 }

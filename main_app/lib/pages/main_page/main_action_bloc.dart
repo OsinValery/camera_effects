@@ -12,6 +12,8 @@ import 'main_action_state.dart';
 import 'main_action_event.dart';
 import 'package:main_app/services/image_saver_service.dart'
     show ImageSaverService;
+import 'package:main_app/services/permission_service.dart'
+    show PermissionService;
 
 class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
   MainActionState curState = const MainActionState();
@@ -23,6 +25,8 @@ class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
   MainActionBloc() : super(const MainActionState()) {
     on<InitStateEvent>(_onInitStateEvent);
     on<StyleTimerEvent>(_onStyleTimerEvent);
+    on<RequestCameraPermissionEvent>(_onPermissionRequestEvent);
+    on<TakePhoteEvent>(_onTakePictureEvent);
   }
 
   void prepareCameraController(CameraDescription description) {
@@ -38,55 +42,89 @@ class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
     });
   }
 
-  void _onInitStateEvent(event, Emitter emitter) async {
-    var description = (await availableCameras())[0];
-    emitter(curState);
-
-    var status = await Permission.camera.status;
-    if (status.isGranted || status.isLimited) {
-      curState = curState.copyWith(cameraPermitted: true);
-    } else {
-      var status = await Permission.camera.request();
-      if (status.isGranted) curState = curState.copyWith(cameraPermitted: true);
-      if (status.isLimited) curState = curState.copyWith(cameraPermitted: true);
-    }
-
-    if (curState.cameraPermitted) prepareCameraController(description);
-    emitter(curState);
+  Future disableCameraController() async {
+    styleTimer?.cancel();
+    await _cameraController.stopImageStream();
+    await _cameraController.dispose();
+    return;
   }
 
-  Future<void> _onStyleTimerEvent(event, Emitter emitter) async {
+  void startImageLoading() {
     var service = GetIt.instance<ImageSaverService>();
-    if (imageLoadingProgress == null) {
-      if (curState.curCameraImage == null) return;
-      imageLoadingProgress = service.startImageLoading(
-        curState.curCameraImage!.planes[0].bytes,
-        curState.curCameraImage!.width,
-        curState.curCameraImage!.height,
-      );
-      return;
-    }
-    // here I am in full transform cycle
-    DateTime start = DateTime.now();
-    imageProcessing = true;
-    String path = (await imageLoadingProgress!);
     imageLoadingProgress = service.startImageLoading(
       curState.curCameraImage!.planes[0].bytes,
       curState.curCameraImage!.width,
       curState.curCameraImage!.height,
     );
+  }
+
+  void _onInitStateEvent(event, Emitter emitter) async {
+    var availableCameras_ = await availableCameras();
+    if (availableCameras_.isEmpty) {
+      emitter(curState);
+      return;
+    }
+    var description = availableCameras_[0];
+    curState = curState.copyWith(cameraAvailable: true);
+    emitter(curState);
+
+    var service = PermissionService();
+    curState = curState.copyWith(
+        cameraPermitted: await service.requestPermission(Permission.camera));
+
+    if (curState.cameraPermitted == true) prepareCameraController(description);
+    emitter(curState);
+  }
+
+  Future<void> _onStyleTimerEvent(event, Emitter emitter) async {
+    if (imageLoadingProgress == null) {
+      if (curState.curCameraImage != null) startImageLoading();
+      return;
+    }
+    // here I am in full transform cycle
+    imageProcessing = true;
+    String path = await imageLoadingProgress!;
+    // start loading picture for the next frame
+    startImageLoading();
     var styleTransfer = GetIt.instance<TFLiteStyleTransfer>();
-    var result = await styleTransfer.runStyleTransfer(
+    var res = await styleTransfer.runStyleTransfer(
       styleImagePath: curState.stylePath,
       imagePath: path,
       styleFromAssets: curState.useStyleFromAssets,
     );
-    curState =
-        curState.copyWith(stylizedImage: File(result!).readAsBytesSync());
+    curState = curState.copyWith(stylizedImage: File(res!).readAsBytesSync());
     imageProcessing = false;
-    DateTime finish = DateTime.now();
     emitter(curState);
-    print(finish.difference(start));
+  }
+
+  void _onPermissionRequestEvent(event, Emitter emitter) async {
+    if (curState.cameraPermitted == true) {
+      emitter(curState);
+      return;
+    }
+    var service = PermissionService();
+    curState = curState.copyWith(
+      cameraPermitted: await service.requestPermission(Permission.camera),
+    );
+    if (curState.cameraPermitted == true) {
+      var availableCameras_ = await availableCameras();
+      prepareCameraController(availableCameras_[0]);
+      emitter(curState);
+    } else {
+      emitter(curState);
+      emitter(const AnotherActionState(type: 'noPermission'));
+    }
+  }
+
+  _onTakePictureEvent(event, Emitter emitter) async {
+    var file = await _cameraController.takePicture();
+    var service = GetIt.instance<TFLiteStyleTransfer>();
+    var outPath = await service.runStyleTransfer(
+      styleImagePath: curState.stylePath,
+      imagePath: file.path,
+      styleFromAssets: curState.useStyleFromAssets,
+    );
+    print(outPath);
   }
 
   @override

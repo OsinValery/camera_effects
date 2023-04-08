@@ -7,6 +7,7 @@ import 'main_action_state.dart';
 
 import './views/camer_no_permitted_view.dart';
 import './views/camera_permitted_view.dart';
+import './views/no_camera.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -26,11 +27,23 @@ class MainPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MainActionBloc, MainActionState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        if (!state.cameraPermitted) {
-          return const CameraPermittionView();
+      listener: (context, state) {
+        state as AnotherActionState;
+        if (state.type == 'noPermission') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("No permission yet!")),
+          );
         }
+      },
+      listenWhen: (previous, current) => current.runtimeType != MainActionState,
+      buildWhen: (previous, current) => current.runtimeType == MainActionState,
+      builder: (context, state) {
+        if (!state.cameraAvailable) return const NoCameraView();
+        if (state.cameraPermitted != true) {
+          return CameraPermittionView(
+              canRequest: state.cameraPermitted != null);
+        }
+
         return CameraView(state: state);
       },
     );
