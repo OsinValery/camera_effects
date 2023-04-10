@@ -33,6 +33,14 @@ class MainPageView extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("No permission yet!")),
           );
+        } else if (state.type == 'style') {
+          Navigator.of(context)
+              .pushNamed("/styleChanging", arguments: state.arguments!)
+              .then((value) {
+            context
+                .read<MainActionBloc>()
+                .add(FinishStyleSelectionEvent(value as Map<String, dynamic>?));
+          });
         }
       },
       listenWhen: (previous, current) => current.runtimeType != MainActionState,

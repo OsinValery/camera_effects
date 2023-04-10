@@ -64,8 +64,9 @@ class MainActionState extends Equatable {
 }
 
 class AnotherActionState extends MainActionState {
-  const AnotherActionState({this.type});
+  const AnotherActionState({this.type, this.arguments});
   final String? type;
+  final Map<String, dynamic>? arguments;
 
   @override
   operator ==(other) => false;

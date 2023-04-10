@@ -32,6 +32,8 @@ class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
     on<ChangeCameraEvent>(_onCameraSwitchEvent);
     on<ZoomStartEvent>(_onZoomStartEvent);
     on<ZoomingEvent>(_onZoomEvent);
+    on<ChangeStyleEvent>(_onStartStyleChanging);
+    on<FinishStyleSelectionEvent>(_onFinishStyleChanging);
   }
 
   void prepareCameraController(CameraDescription description) {
@@ -155,6 +157,27 @@ class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
     newZoom = max(minZoom, min(newZoom, maxZoom));
     curState = curState.copyWith(zoomLavel: newZoom);
     _cameraController.setZoomLevel(newZoom as double);
+    emitter(curState);
+  }
+
+  void _onStartStyleChanging(event, Emitter emitter) {
+    emitter(AnotherActionState(type: 'style', arguments: {
+      'path': curState.stylePath,
+      'useAssets': state.useStyleFromAssets,
+    }));
+  }
+
+  void _onFinishStyleChanging(
+      FinishStyleSelectionEvent event, Emitter emitter) {
+    if (event.argument != null) {
+      String newPath = event.argument!['path'];
+      bool useAssets = event.argument!['useAssets'];
+      curState = curState.copyWith(
+        stylePath: newPath,
+        useStyleFromAssets: useAssets,
+      );
+    }
+
     emitter(curState);
   }
 
