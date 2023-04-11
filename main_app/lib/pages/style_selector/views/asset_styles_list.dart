@@ -20,7 +20,14 @@ class NewStyleSelectionWidget extends StatelessWidget {
         const SizedBox(height: 8),
         Expanded(
           flex: 10,
-          child: Image.asset(curImagePath, width: widgetSize, fit: BoxFit.fill),
+          child: Hero(
+            tag: curImagePath,
+            child: Image.asset(
+              curImagePath,
+              width: widgetSize,
+              fit: BoxFit.fill,
+            ),
+          ),
         ),
         const SizedBox(height: 8),
         Expanded(

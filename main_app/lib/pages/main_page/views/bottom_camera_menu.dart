@@ -79,7 +79,10 @@ class BottomMenu extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () => context.read<MainActionBloc>().add(ChangeStyleEvent()),
-            child: styleImage,
+            child: Hero(
+              tag: stylePath,
+              child: styleImage,
+            ),
           ),
         ],
       ),
