@@ -1,0 +1,88 @@
+{
+    // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+    // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+    // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "files_from_camera",
+            "cwd": "files_from_camera",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "files_from_camera (profile mode)",
+            "cwd": "files_from_camera",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "files_from_camera (release mode)",
+            "cwd": "files_from_camera",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "main_app",
+            "cwd": "main_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "main_app (profile mode)",
+            "cwd": "main_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "main_app (release mode)",
+            "cwd": "main_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "second_library",
+            "cwd": "second_library",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "second_library (profile mode)",
+            "cwd": "second_library",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "second_library (release mode)",
+            "cwd": "second_library",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "style_transfer_app",
+            "cwd": "style_transfer_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "style_transfer_app (profile mode)",
+            "cwd": "style_transfer_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "style_transfer_app (release mode)",
+            "cwd": "style_transfer_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

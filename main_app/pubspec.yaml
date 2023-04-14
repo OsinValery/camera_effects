@@ -36,6 +36,8 @@ dependencies:
   camera: ^0.10.3+2
   path_provider:
   permission_handler: ^8.3.0
+  gallery_saver: ^2.3.2
+  photo_manager: ^2.6.0
   tflite_style_transfer:
   image:
 

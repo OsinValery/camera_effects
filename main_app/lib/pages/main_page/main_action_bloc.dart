@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:camera/camera.dart';
+import 'package:gallery_saver/gallery_saver.dart' show GallerySaver;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get_it/get_it.dart' show GetIt;
 import 'package:tflite_style_transfer/tflite_style_transfer.dart'
@@ -132,6 +133,8 @@ class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
       styleFromAssets: curState.useStyleFromAssets,
     );
     print(outPath);
+    curState = curState.copyWith(lastImage: outPath);
+    if (outPath != null) GallerySaver.saveImage(outPath);
   }
 
   _onCameraSwitchEvent(event, Emitter emitter) async {

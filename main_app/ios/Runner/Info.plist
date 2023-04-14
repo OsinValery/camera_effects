@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>your usage description here</string>
+	<string> This app changes image from camera and present you</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string> You can save stylized image to library</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>your usage description here</string>
 	<key>CFBundleDevelopmentRegion</key>

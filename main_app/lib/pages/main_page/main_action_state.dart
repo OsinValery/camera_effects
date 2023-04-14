@@ -17,12 +17,14 @@ class MainActionState extends Equatable {
     this.useStyleFromAssets = true,
     this.cameraAvailable = false,
     this.zoomLavel = 1,
+    this.lastImage,
   });
   final bool styleTransferRunned;
   final bool cameraAvailable;
   final List<int>? stylizedImage;
   final CameraImage? curCameraImage;
   final String stylePath;
+  final String? lastImage;
   final bool useStyleFromAssets;
   final bool? cameraPermitted;
   final CameraMode cameraMode;
@@ -37,7 +39,8 @@ class MainActionState extends Equatable {
         useStyleFromAssets,
         cameraPermitted,
         cameraMode,
-        cameraAvailable
+        cameraAvailable,
+        lastImage,
       ];
 
   MainActionState copyWith(
@@ -45,6 +48,7 @@ class MainActionState extends Equatable {
           List<int>? stylizedImage,
           CameraImage? curCameraImage,
           String? stylePath,
+          String? lastImage,
           bool? useStyleFromAssets,
           bool? cameraPermitted,
           CameraMode? cameraMode,
@@ -60,6 +64,7 @@ class MainActionState extends Equatable {
         cameraPermitted: cameraPermitted ?? this.cameraPermitted,
         cameraAvailable: cameraAvailable ?? this.cameraAvailable,
         zoomLavel: zoomLavel ?? this.zoomLavel,
+        lastImage: lastImage ?? this.lastImage,
       );
 }
 

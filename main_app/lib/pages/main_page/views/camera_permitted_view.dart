@@ -56,7 +56,7 @@ class CameraView extends StatelessWidget {
           ),
         ),
         BottomMenu(
-          lastPicturePath: null,
+          lastPicturePath: state.lastImage,
           btnState: CameraStateButtonState.photo,
           stylePath: state.stylePath,
           useStyleFromAssets: state.useStyleFromAssets,
