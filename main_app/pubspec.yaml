@@ -37,7 +37,7 @@ dependencies:
   path_provider:
   permission_handler: ^8.3.0
   gallery_saver: ^2.3.2
-  photo_manager: ^2.6.0
+  image_picker: ^0.8.7+3
   tflite_style_transfer:
   image:
 

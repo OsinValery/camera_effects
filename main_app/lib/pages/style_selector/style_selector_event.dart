@@ -1,11 +1,7 @@
 class StyleSelectionEventBase {}
 
 class ChangeStyleEvent extends StyleSelectionEventBase {
-  ChangeStyleEvent(this.curPath);
+  ChangeStyleEvent(this.curPath, this.type);
   String curPath;
-}
-
-class ChangeStyleTypeEvent extends StyleSelectionEventBase {
-  final int type;
-  ChangeStyleTypeEvent(this.type);
+  int type;
 }

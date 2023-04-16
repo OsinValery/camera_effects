@@ -5,8 +5,8 @@ import 'package:main_app/services/styles_images_service.dart';
 import '../style_selector_bloc.dart';
 import '../style_selector_event.dart';
 
-class NewStyleSelectionWidget extends StatelessWidget {
-  const NewStyleSelectionWidget({super.key, required this.curImagePath});
+class StyleSelectionWidget extends StatelessWidget {
+  const StyleSelectionWidget({super.key, required this.curImagePath});
 
   final String curImagePath;
 
@@ -56,7 +56,7 @@ class ImageSelectionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () =>
-          context.read<StyleSelectionBloc>().add(ChangeStyleEvent(imgPath)),
+          context.read<StyleSelectionBloc>().add(ChangeStyleEvent(imgPath, 0)),
       child: Image.asset(imgPath),
     );
   }
