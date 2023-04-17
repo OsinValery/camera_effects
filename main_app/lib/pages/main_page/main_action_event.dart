@@ -29,3 +29,5 @@ class FinishStyleSelectionEvent extends MainActionEvent {
   FinishStyleSelectionEvent(this.argument);
   Map<String, dynamic>? argument;
 }
+
+class PresentLastImageEvent extends MainActionEvent {}

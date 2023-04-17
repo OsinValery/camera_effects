@@ -35,6 +35,7 @@ class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
     on<ZoomingEvent>(_onZoomEvent);
     on<ChangeStyleEvent>(_onStartStyleChanging);
     on<FinishStyleSelectionEvent>(_onFinishStyleChanging);
+    on<PresentLastImageEvent>(_onPresentLastImageEvent);
   }
 
   void prepareCameraController(CameraDescription description) {
@@ -182,6 +183,10 @@ class MainActionBloc extends Bloc<MainActionEvent, MainActionState> {
     }
 
     emitter(curState);
+  }
+
+  void _onPresentLastImageEvent(event, Emitter emitter) {
+    emitter(const AnotherActionState(type: "presentLastImage"));
   }
 
   @override

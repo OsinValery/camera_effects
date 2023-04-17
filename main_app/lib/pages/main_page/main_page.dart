@@ -41,6 +41,8 @@ class MainPageView extends StatelessWidget {
                 .read<MainActionBloc>()
                 .add(FinishStyleSelectionEvent(value as Map<String, dynamic>?));
           });
+        } else if (state.type == 'presentLastImage') {
+          Navigator.of(context).pushNamed("/lastImage");
         }
       },
       listenWhen: (previous, current) => current.runtimeType != MainActionState,

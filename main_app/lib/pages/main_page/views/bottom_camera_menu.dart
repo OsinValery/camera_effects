@@ -64,7 +64,11 @@ class BottomMenu extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          lastImage,
+          GestureDetector(
+            onTap: () =>
+                context.read<MainActionBloc>().add(PresentLastImageEvent()),
+            child: lastImage,
+          ),
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,

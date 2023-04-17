@@ -8,6 +8,7 @@ import 'services/styles_images_service.dart' show AssetsStylesImagesService;
 
 import 'pages/main_page/main_page.dart' show MainPage;
 import 'pages/style_selector/view.dart' show StyleSelectionPage;
+import 'pages/image_presenter/view.dart' show ImagePresenterView;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         '/': (context) => const MainPage(),
-        '/styleChanging': (_) => const StyleSelectionPage()
+        '/styleChanging': (_) => const StyleSelectionPage(),
+        '/lastImage': (_) => const ImagePresenterView(),
       },
     );
   }
